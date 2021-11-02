@@ -1,0 +1,15 @@
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
+on: [push, pull_request]
+name: Validate
+jobs:
+  validate:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.16.0'
+    - run: |
+        make VERBOSE=all toolchain validate publish-coverage
